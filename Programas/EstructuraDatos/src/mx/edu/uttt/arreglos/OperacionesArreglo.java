@@ -1,134 +1,135 @@
 package mx.edu.uttt.arreglos;
 
-
 import javax.swing.*;
 
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class OperacionesArreglo {
-        private double[] vector;
-        private final int TAMANIO = 5;
+    private double[] vector;
+    private final int TAMANIO = 5;
 
-        public OperacionesArreglo(){
-            this.vector =  new double[TAMANIO];
+    public OperacionesArreglo(){
+        this.vector =  new double[TAMANIO];
+    }
+
+    public OperacionesArreglo(int tamanio){
+        this.vector =  new double[tamanio];
+    }
+
+
+    public OperacionesArreglo(double [] vector){
+        this.vector =  new double[vector.length];
+    }
+
+    public void llenarArreglo(double [] vector){
+        int i = 0;
+
+        while (i<this.vector.length){
+            this.vector[i] = vector [i];
+            i++;
+        }
+    }
+
+
+    public void llenarArreglo(){
+
+        for (int i = 0; i < this.vector.length; i++) {
+            JOptionPane.showInputDialog("Ingrese el tamaño del vector numero: "+i);
+            vector[i]= Double.parseDouble(JOptionPane.showInputDialog("El vector de la posicion "+i+" es: "+vector));
+
         }
 
-        public OperacionesArreglo(int tamanio){
-            this.vector =  new double[tamanio];
+    }
+    public double sumarValores(){
+        double suma=0.0;
+
+        for (int i = 0; i < this.vector.length; i++) {
+            suma+= vector[i];
         }
 
+        return suma;
+    }
 
-        public OperacionesArreglo(double [] vector){
-            this.vector =  new double[vector.length];
-        }
+    public double obtenervalorMaximo(){
 
-        public void llenarArreglo(double [] vector){
-            int i = 0;
+        double valorMax = 0.0;
+        int i = 0;
+        while(i<this.vector.length){
+            if(valorMax<this.vector[i]){
+                valorMax = this.vector[i];
 
-            while (i<this.vector.length){
-                this.vector[i] = vector [i];
                 i++;
             }
-        }
-
-
-        public void llenarArreglo(){
-
-            for (int i = 0; i < vector.length; i++) {
-                JOptionPane.showInputDialog("Ingrese el tamaño del vector numero: "+i);
-                vector[i]= Double.parseDouble(JOptionPane.showInputDialog("El vector de la posicion "+i+" es: "+vector));
 
             }
 
-        }
-        public double sumarValores(){
-            double suma=0.0;
+        return valorMax;
+    }
 
-            for (int i = 0; i < vector.length; i++) {
-            suma+= vector[i];
-            }
-            JOptionPane.showMessageDialog(null, "La suma de todos los valores es: " + suma);
-            return suma;
-        }
+    public double obtenerValorMinimo(){
 
-        public double obtenervalorMaximo(){
-            if (vector.length == 0) {
-                JOptionPane.showMessageDialog(null, "El areglo no tiene nada unu");
+        double valorMin = 0.0;
+        int posicion = 0;
+        for (double valor: this.vector) {
+            if (valor < valorMin){
+                valorMin = valor;
             }
-            double valorMax = vector[0];
-            int posicion = 0;
-            for (int i = 1; i < vector.length; i++) {
-                if (vector[i]> valorMax){
-                    valorMax = vector[i];
-                    posicion= i;
+        }
+        return valorMin;
+    }
+
+    public boolean CompararArreglos(double [] vector){
+        boolean isEquals = true;
+
+
+        if (vector.length != this.vector.length){
+            isEquals = false;
+        }else {
+            for (int i = 0; i < this.vector.length && isEquals; i++) {
+                if (this.vector [i] != this.vector[i]){
+                    isEquals = false;
                 }
             }
-            showMessageDialog(null, valorMax);
-
-            return valorMax;
-        }
-
-        public double obtenerValorMinimo(){
-            if (vector.length == 0) {
-                JOptionPane.showMessageDialog(null, "El areglo no tiene nada unu");
-            }
-            double valorMin = vector[0];
-            int posicion = 0;
-            for (int i = 1; i < vector.length; i++) {
-                if (vector[i]< valorMin){
-                    valorMin = vector[i];
-                    posicion= i;
-                }
-            }
-            JOptionPane.showMessageDialog(null, "El valor minimo es: "+valorMin+ " en la posicion: "+ posicion);
-            return valorMin;
-        }
-
-        public boolean CompararArreglos(double [] vector){
-            boolean isEquals = true;
-
-
-            if (vector.length != this.vector.length){
-                isEquals = false;
-            }else {
-                for (int i = 0; i < this.vector.length && isEquals; i++) {
-                    if (this.vector [i] != this.vector[i]){
-                        isEquals = false;
-                    }
-                }
-
-            }
-
-            return isEquals;
-        }
-
-        public void cambiarTamanio(int tamanio){
-JOptionPane.showInputDialog("Ingrese el tamañp que quiere cambiar del arreglo");
 
         }
 
-        public void buscarValor(double valor){
-        JOptionPane.showInputDialog("Que valor busca?");
-            for (int i = 0; i < vector.length; i++) {
-                if (vector[i] == valor) {
-                    JOptionPane.showMessageDialog(null,"El valor de: "+valor+" esta en la posicion: "+i);
-                    return;
-                    
-                } else{
-                    JOptionPane.showMessageDialog(null, "Valor " + valor + " no se encontro");
-                }
-            }
-        }
+        return isEquals;
+    }
 
-        public void imprimir(){
-            //for each
-            String salida ="";
-            for (double valor: vector){
-                salida+= "| "+valor+ " |";
-            }
-            showMessageDialog(null, salida);
+    public void cambiarTamanio(int tamanio){
+        double temp [] = new double[tamanio];
+
+        for(int i=0 ; i<this.vector.length; i++){
+            temp[i] = this.vector[i];
         }
 
     }
 
+    public String buscarValor(double valor){
+        String salida ="";
+        boolean sentinel = false;
+
+        for( int i=0; i<this.vector.length; i++){
+            if(valor == this.vector [i]){
+                sentinel = true;
+                salida= "El valor de "+valor+ " esta en la posicion "+i;
+                break;
+            }
+
+        }
+        if (!sentinel)
+            salida = " el valor no se encontro en el arreglo";
+         return salida;
+    }
+
+    public void imprimir(){
+        //for each
+        String salida ="";
+        for (double valor: vector){
+            salida+= "| "+valor+ " |";
+        }
+        showMessageDialog(null, salida);
+    }
+
+}
