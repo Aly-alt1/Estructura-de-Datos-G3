@@ -5,18 +5,20 @@ import javax.swing.*;
 public class ProductoVector {
 
 //variable de instancia
-    private Producto[] productos;
+    public Producto[] productos;
     private final int TAMANIO=3;
 
     public ProductoVector(){
         productos = new Producto[TAMANIO];
     }
 
-    private ProductoVector(int tamanio){
-        if(tamanio>=0){
-            productos= new Producto[tamanio];
+    public  ProductoVector(int tamanio){
+        if(tamanio >0){
+            productos = new Producto[tamanio];
         }else{
-            productos= new Producto[TAMANIO];
+            productos = new Producto[TAMANIO];
+            JOptionPane.showMessageDialog(null,
+                    "Se agrego esta lleno, no se puede agregar el producto");
         }
     }
 
@@ -30,8 +32,7 @@ public class ProductoVector {
 
 
 
-
-    private boolean estaLleno (){
+    public boolean estaLleno (){
         boolean sentinel = true;
 
         for(Producto producto: this.productos){
@@ -43,7 +44,7 @@ public class ProductoVector {
         return sentinel;
     }
 
-    private int obtenerPosicion(){
+    public int obtenerPosicion(){
 
         int posicion=0;
         for(int i=0; i<this.productos.length; i++){
@@ -53,13 +54,30 @@ public class ProductoVector {
             }
         }
         return posicion;
+
     }
 
+    public String imprimir(){
+        String salida= "lista de productos";
+
+        if(productos[0] != null) {
 
 
+            for (int i = 0; i < productos.length; i++) {
+                if (productos[i] != null) {
+
+                    salida += "NOmbre: " + productos[i].getNombre() +
+                            "\nPrecio: " + productos[i].getPrecio() +
+                            "\nExistencia: " + productos[i].getExistencia() +
+                            "\n Importe Inventario: " +
+                            productos[i].getPrecio() * productos[i].getExistencia();
 
 
-
+                }
+            }
+        }
+        return salida;
+    }
 
 
 }
